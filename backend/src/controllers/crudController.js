@@ -96,8 +96,15 @@ const createCRUDController = (modelName) => {
         res.status(201).json(item);
       } catch (err) {
         if (err.code === 'P2002') {
-          const field = err.meta?.target?.[0] || '字段';
-          return res.status(400).json({ message: `创建失败，${field} 已存在，请使用其他值` });
+          const target = err.meta?.target;
+          let message = '创建失败，数据已存在';
+          if (Array.isArray(target) && target.includes('cityId') && target.includes('name')) {
+            message = '创建失败，同一城市下该景点名称已存在';
+          } else {
+            const field = target?.[0] || '字段';
+            message = `创建失败，${field} 已存在，请使用其他值`;
+          }
+          return res.status(400).json({ message });
         }
         logger.error(`[CRUD create ${modelName}] Error: ${err.message}`, { error: err });
         res.status(500).json({ message: '服务器内部错误，请稍后重试' });
@@ -125,8 +132,15 @@ const createCRUDController = (modelName) => {
           return res.status(404).json({ message: '要更新的记录不存在' });
         }
         if (err.code === 'P2002') {
-          const field = err.meta?.target?.[0] || '字段';
-          return res.status(400).json({ message: `更新失败，${field} 已存在，请使用其他值` });
+          const target = err.meta?.target;
+          let message = '更新失败，数据已存在';
+          if (Array.isArray(target) && target.includes('cityId') && target.includes('name')) {
+            message = '更新失败，同一城市下该景点名称已存在';
+          } else {
+            const field = target?.[0] || '字段';
+            message = `更新失败，${field} 已存在，请使用其他值`;
+          }
+          return res.status(400).json({ message });
         }
         logger.error(`[CRUD update ${modelName}] Error: ${err.message}`, { error: err });
         res.status(500).json({ message: '服务器内部错误，请稍后重试' });
@@ -140,12 +154,13 @@ const createCRUDController = (modelName) => {
             data: { fleetId: null }
           });
         } else if (modelName === 'city') {
-          // 将关联的司机、导游、餐厅、购物店的城市设为空
+          // 将关联的司机、导游、餐厅、购物店、景点的城市设为空
           await Promise.all([
             prisma.driver.updateMany({ where: { cityId: req.params.id }, data: { cityId: null } }),
             prisma.guider.updateMany({ where: { cityId: req.params.id }, data: { cityId: null } }),
             prisma.restaurant.updateMany({ where: { cityId: req.params.id }, data: { cityId: null } }),
-            prisma.store.updateMany({ where: { cityId: req.params.id }, data: { cityId: null } })
+            prisma.store.updateMany({ where: { cityId: req.params.id }, data: { cityId: null } }),
+            prisma.scenicSpot.updateMany({ where: { cityId: req.params.id }, data: { cityId: null } })
           ]);
         }
         await prisma[modelName].delete({ where: { id: req.params.id } });
@@ -183,6 +198,7 @@ const getSearchableFields = (modelName) => {
     guider: ['name', 'phone'],
     restaurant: ['name', 'address'],
     store: ['name', 'address'],
+    scenicSpot: ['name'],
     deliveryOrder: ['platformName', 'orderRef', 'passengerName'],
     vehicle: ['name', 'carPlatformName'],
     fleet: ['name', 'leader'],
@@ -193,11 +209,12 @@ const getSearchableFields = (modelName) => {
 
 const getIncludes = (modelName) => {
   const includes = {
-    city: { drivers: true, guiders: true, restaurants: true, stores: true },
+    city: { drivers: true, guiders: true, restaurants: true, stores: true, scenicSpots: true },
     driver: { city: true, fleet: true },
     guider: { city: true },
     restaurant: { city: true },
     store: { city: true },
+    scenicSpot: { city: true },
     deliveryOrder: { vehicle: true, driver: true, guider: true },
     fleet: { drivers: true }
   };
