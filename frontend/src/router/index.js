@@ -20,6 +20,7 @@ const routes = [
       { path: 'guiders', name: 'Guiders', component: () => import('../views/guider/index.vue'), meta: { title: '导游管理' } },
       { path: 'restaurants', name: 'Restaurants', component: () => import('../views/restaurant/index.vue'), meta: { title: '餐馆管理' } },
       { path: 'stores', name: 'Stores', component: () => import('../views/store/index.vue'), meta: { title: '购物店管理' } },
+      { path: 'scenic-spots', name: 'ScenicSpots', component: () => import('../views/scenic-spot/index.vue'), meta: { title: '景点管理' } },
       { path: 'cities', name: 'Cities', component: () => import('../views/city/index.vue'), meta: { title: '城市管理' } },
       { path: 'system-management', name: 'SystemManagement', component: () => import('../views/system-management/index.vue'), meta: { title: '系统管理' } },
     ]
