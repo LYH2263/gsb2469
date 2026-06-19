@@ -140,12 +140,13 @@ const createCRUDController = (modelName) => {
             data: { fleetId: null }
           });
         } else if (modelName === 'city') {
-          // 将关联的司机、导游、餐厅、购物店的城市设为空
+          // 将关联的司机、导游、餐厅、购物店、景点的城市设为空
           await Promise.all([
             prisma.driver.updateMany({ where: { cityId: req.params.id }, data: { cityId: null } }),
             prisma.guider.updateMany({ where: { cityId: req.params.id }, data: { cityId: null } }),
             prisma.restaurant.updateMany({ where: { cityId: req.params.id }, data: { cityId: null } }),
-            prisma.store.updateMany({ where: { cityId: req.params.id }, data: { cityId: null } })
+            prisma.store.updateMany({ where: { cityId: req.params.id }, data: { cityId: null } }),
+            prisma.scenicSpot.updateMany({ where: { cityId: req.params.id }, data: { cityId: null } })
           ]);
         }
         await prisma[modelName].delete({ where: { id: req.params.id } });
@@ -183,6 +184,7 @@ const getSearchableFields = (modelName) => {
     guider: ['name', 'phone'],
     restaurant: ['name', 'address'],
     store: ['name', 'address'],
+    scenicSpot: ['name'],
     deliveryOrder: ['platformName', 'orderRef', 'passengerName'],
     vehicle: ['name', 'carPlatformName'],
     fleet: ['name', 'leader'],
@@ -193,11 +195,12 @@ const getSearchableFields = (modelName) => {
 
 const getIncludes = (modelName) => {
   const includes = {
-    city: { drivers: true, guiders: true, restaurants: true, stores: true },
+    city: { drivers: true, guiders: true, restaurants: true, stores: true, scenicSpots: true },
     driver: { city: true, fleet: true },
     guider: { city: true },
     restaurant: { city: true },
     store: { city: true },
+    scenicSpot: { city: true },
     deliveryOrder: { vehicle: true, driver: true, guider: true },
     fleet: { drivers: true }
   };
