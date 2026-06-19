@@ -40,6 +40,9 @@
         <a-menu-item key="Stores">
           购物店管理
         </a-menu-item>
+        <a-menu-item key="ScenicSpots">
+          景点管理
+        </a-menu-item>
         <a-menu-item key="Cities">
           城市管理
         </a-menu-item>

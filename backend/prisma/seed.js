@@ -168,7 +168,29 @@ async function main() {
   }
   console.log('Ensured at least 10 stores');
 
-  // 9. Create Delivery Orders (50)
+  // 9. Create Scenic Spots (10)
+  const scenicSpotCount = await prisma.scenicSpot.count();
+  if (scenicSpotCount < 10) {
+    const spotNames = [
+      '故宫博物院', '外滩', '广州塔', '世界之窗', '西湖',
+      '九寨沟', '洪崖洞', '兵马俑', '中山陵', '黄鹤楼'
+    ];
+    const statuses = ['open', 'open', 'open', 'closed', 'open', 'open', 'open', 'open', 'closed', 'open'];
+    for (let i = scenicSpotCount; i < 10; i++) {
+      await prisma.scenicSpot.create({
+        data: {
+          name: spotNames[i],
+          cityId: cities[i % cities.length].id,
+          address: `${cities[i % cities.length].name}${spotNames[i]}景区`,
+          phone: `135${i.toString().padStart(8, '0')}`,
+          status: statuses[i]
+        }
+      });
+    }
+  }
+  console.log('Ensured at least 10 scenic spots');
+
+  // 10. Create Delivery Orders (50)
   const orderCount = await prisma.deliveryOrder.count();
   if (orderCount < 50) {
     const statuses = ['Pending', 'Confirmed', 'Completed', 'Cancelled'];

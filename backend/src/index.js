@@ -36,6 +36,7 @@ const modules = [
   { path: 'guiders', model: 'guider' },
   { path: 'restaurants', model: 'restaurant' },
   { path: 'stores', model: 'store' },
+  { path: 'scenic-spots', model: 'scenicSpot' },
   { path: 'vehicles', model: 'vehicle' },
   { path: 'delivery-orders', model: 'deliveryOrder' },
   { path: 'fleets', model: 'fleet' },
