@@ -21,6 +21,7 @@ model City {
   guiders   Guider[]
   restaurants Restaurant[]
   stores      Store[]
+  scenicSpots ScenicSpot[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -132,4 +133,18 @@ model DeliveryOrder {
   bookingType     String?
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
+}
+
+model ScenicSpot {
+  id        String   @id @default(uuid())
+  name      String
+  city      City?    @relation(fields: [cityId], references: [id])
+  cityId    String?
+  address   String
+  phone     String?
+  status    String   @default("open")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([cityId, name])
 }
