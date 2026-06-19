@@ -1,0 +1,275 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background-color: var(--color-fill-1);
+}
+
+#app {
+  height: 100%;
+  width: 100%;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 100%;
+}
+
+/* Global Component Beautification */
+.arco-card {
+  border-radius: 8px !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  border: none !important;
+  transition: all 0.3s;
+  background-color: var(--color-bg-2) !important;
+}
+
+body[arco-theme='dark'] .arco-card {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+
+.arco-card:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.arco-btn {
+  border-radius: 6px !important;
+}
+
+.arco-table-container {
+  border-radius: 8px !important;
+  background-color: var(--color-bg-2);
+}
+
+.arco-table-th {
+  background-color: var(--color-fill-2) !important;
+  font-weight: 600 !important;
+  color: var(--color-text-1) !important;
+  height: 50px !important;
+}
+
+.arco-table-tr:hover .arco-table-td {
+  background-color: var(--color-fill-3) !important;
+}
+
+.arco-table-td {
+  height: 54px !important;
+  color: var(--color-text-2) !important;
+}
+
+.arco-tag {
+  border-radius: 4px !important;
+  font-weight: 500 !important;
+}
+
+.arco-btn-text {
+  transition: all 0.2s !important;
+}
+
+.arco-btn-text:hover {
+  background-color: rgba(var(--arcoblue-6), 0.1) !important;
+}
+
+.arco-btn-text.arco-btn-status-danger:hover {
+  background-color: rgba(var(--danger-6), 0.1) !important;
+}
+
+.arco-tabs-nav-type-rounded .arco-tabs-nav-tab {
+  background-color: var(--color-fill-2) !important;
+  padding: 4px !important;
+  border-radius: 8px !important;
+}
+
+.arco-tabs-nav-type-rounded .arco-tabs-nav-ink {
+  border-radius: 6px !important;
+}
+
+/* Global Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-fill-2);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-fill-4);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-fill-5);
+}
+/* Dark Mode Overrides */
+body[arco-theme='dark'] {
+  background-color: #17171a !important;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+body[arco-theme='dark'] .arco-card {
+  background-color: #232324 !important;
+  border: 1px solid #333335 !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+body[arco-theme='dark'] .arco-table-container {
+  background-color: #232324 !important;
+}
+
+body[arco-theme='dark'] .arco-table-th {
+  background-color: #2a2a2b !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+  border-bottom: 1px solid #333335 !important;
+}
+
+body[arco-theme='dark'] .arco-table-td {
+  background-color: #232324 !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+  border-bottom: 1px solid #333335 !important;
+}
+
+body[arco-theme='dark'] .arco-table-tr:hover .arco-table-td {
+  background-color: #2e2e30 !important;
+}
+
+body[arco-theme='dark'] .arco-layout-sider {
+  background-color: #232324 !important;
+  border-right: 1px solid #333335;
+}
+
+body[arco-theme='dark'] .arco-menu-light {
+  background-color: #232324 !important;
+}
+
+body[arco-theme='dark'] .arco-layout-header {
+  background-color: #232324 !important;
+  border-bottom: 1px solid #333335 !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+body[arco-theme='dark'] .content {
+  background: linear-gradient(180deg, #1c1c1f, #17171a) !important;
+}
+
+body[arco-theme='dark'] .logo {
+  background-color: #232324 !important;
+  border-bottom: 1px solid #333335 !important;
+}
+
+body[arco-theme='dark'] .arco-btn-secondary {
+  background-color: #333335 !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+body[arco-theme='dark'] .arco-btn-secondary:hover {
+  background-color: #3e3e40 !important;
+}
+
+body[arco-theme='dark'] .arco-input-wrapper,
+body[arco-theme='dark'] .arco-select-view-single,
+body[arco-theme='dark'] .arco-textarea-wrapper {
+  background-color: #2a2a2b !important;
+  border-color: #333335 !important;
+}
+
+body[arco-theme='dark'] .arco-statistic-title {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+body[arco-theme='dark'] .arco-statistic-value {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+body[arco-theme='dark'] .arco-breadcrumb-item {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+body[arco-theme='dark'] .arco-breadcrumb-item-active {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+body[arco-theme='dark'] .arco-modal {
+  background-color: #232324 !important;
+}
+
+body[arco-theme='dark'] .arco-modal-header,
+body[arco-theme='dark'] .arco-modal-footer {
+  border-color: #333335 !important;
+}
+
+body[arco-theme='dark'] .arco-tabs-nav-type-rounded .arco-tabs-nav-tab {
+  background-color: #2a2a2b !important;
+}
+
+body[arco-theme='dark'] .arco-tabs-nav-type-rounded .arco-tabs-nav-ink {
+  background-color: #3e3e40 !important;
+}
+
+body[arco-theme='dark'] .arco-empty-description {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Scrollbar in Dark Mode */
+body[arco-theme='dark'] ::-webkit-scrollbar-track {
+  background: #1d1d1f;
+}
+
+body[arco-theme='dark'] ::-webkit-scrollbar-thumb {
+  background: #333335;
+}
+
+body[arco-theme='dark'] ::-webkit-scrollbar-thumb:hover {
+  background: #444446;
+}
+
+/* Card Improvements */
+body[arco-theme='dark'] .arco-card-header {
+  border-bottom: 1px solid #333335 !important;
+}
+
+body[arco-theme='dark'] .arco-card-header-title {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Table Enhancements */
+body[arco-theme='dark'] .arco-table-border .arco-table-container {
+  border: 1px solid #333335;
+}
+
+/* Form and Input Enhancements */
+body[arco-theme='dark'] .arco-input-focus,
+body[arco-theme='dark'] .arco-select-view-focus,
+body[arco-theme='dark'] .arco-textarea-focus {
+  background-color: #2e2e30 !important;
+  border-color: var(--color-primary-light-4) !important;
+  box-shadow: 0 0 0 2px rgba(var(--primary-6), 0.2);
+}
+
+body[arco-theme='dark'] .arco-form-item-label {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* Menu Enhancements */
+body[arco-theme='dark'] .arco-menu-inline-header,
+body[arco-theme='dark'] .arco-menu-item {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+body[arco-theme='dark'] .arco-menu-selected {
+  color: var(--color-white) !important;
+  background-color: var(--color-primary-light-1) !important;
+}
+
+body[arco-theme='dark'] .arco-menu-item:hover {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}

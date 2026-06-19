@@ -1,0 +1,135 @@
+datasource db {
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        String   @id @default(uuid())
+  username  String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model City {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  drivers   Driver[]
+  guiders   Guider[]
+  restaurants Restaurant[]
+  stores      Store[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Driver {
+  id          String   @id @default(uuid())
+  name        String
+  city        City?    @relation(fields: [cityId], references: [id])
+  cityId      String?
+  fleet       Fleet?   @relation(fields: [fleetId], references: [id])
+  fleetId     String?
+  motorcade   String?
+  phone       String?
+  email       String   @unique
+  password    String
+  deliveryOrders DeliveryOrder[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Fleet {
+  id           String   @id @default(uuid())
+  name         String
+  leader       String?
+  contact      String?
+  status       String   @default("active")
+  drivers      Driver[]
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Guider {
+  id                String   @id @default(uuid())
+  name              String
+  city              City?    @relation(fields: [cityId], references: [id])
+  cityId            String?
+  enName            String?
+  phone             String?
+  password          String
+  guideLicense      String?
+  bankName          String?
+  bankAccountName   String?
+  bankAccount       String?
+  email             String   @unique
+  language          String
+  deliveryOrders    DeliveryOrder[]
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+model Restaurant {
+  id        String   @id @default(uuid())
+  name      String
+  city      City?    @relation(fields: [cityId], references: [id])
+  cityId    String?
+  address   String
+  phone     String?
+  combos    Json?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Store {
+  id        String   @id @default(uuid())
+  name      String
+  city      City?    @relation(fields: [cityId], references: [id])
+  cityId    String?
+  address   String
+  phone     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Vehicle {
+  id                String   @id @default(uuid())
+  name              String
+  carPlatformName   String
+  carPlatformId     String
+  deliveryOrders    DeliveryOrder[]
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+model DeliveryOrder {
+  id              String   @id @default(uuid())
+  platformName    String
+  orderRef        String
+  status          String
+  passengerName   String?
+  passengerTelno  String?
+  pax             Int
+  adults          Int
+  children        Int?
+  infants         Int?
+  nonVehicle      Int
+  vehicleType     String?
+  fromAddress     String
+  toAddress       String
+  startLocation   Json
+  endLocation     Json
+  departureTime   String
+  vehicle         Vehicle? @relation(fields: [vehicleId], references: [id])
+  vehicleId       String?
+  driver          Driver?  @relation(fields: [driverId], references: [id])
+  driverId        String?
+  guider          Guider?  @relation(fields: [guiderId], references: [id])
+  guiderId        String?
+  airport         String?
+  bookingType     String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
